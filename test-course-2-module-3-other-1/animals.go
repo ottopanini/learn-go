@@ -22,39 +22,64 @@ func (a Animal) Speak() {
 	fmt.Println(a.noise)
 }
 
+func (a *Animal) init(food, locomotion, noise string) {
+	a.food = food
+	a.locomotion = locomotion
+	a.noise = noise
+}
+
 func main() {
+	cow := Animal{}
+	cow.init("grass", "walk", "moo")
 
-	var animal, action string
+	bird := Animal{}
+	bird.init("worms", "fly", "peep")
 
-	cow := Animal{food: "grass", locomotion: "walk", noise: "moo"}
-	snake := Animal{food: "mice", locomotion: "slither", noise: "hsss"}
-	bird := Animal{food: "worms", locomotion: "fly", noise: "peep"}
+	snake := Animal{}
+	snake.init("mice", "slither", "hsss")
 
 	for {
-		fmt.Print(">")
-
-		fmt.Scanln(&animal, &action)
-
-		var animalInput Animal
+		var animal, action string
+		fmt.Print("> ")
+		fmt.Scanf("%s %s", &animal, &action)
 
 		switch animal {
 		case "cow":
-			animalInput = cow
-		case "snake":
-			animalInput = snake
+			switch action {
+			case "eat":
+				cow.Eat()
+			case "move":
+				cow.Move()
+			case "speak":
+				cow.Speak()
+			default:
+				fmt.Println("Invalid Action")
+			}
 		case "bird":
-			animalInput = bird
+			switch action {
+			case "eat":
+				bird.Eat()
+			case "move":
+				bird.Move()
+			case "speak":
+				bird.Speak()
+			default:
+				fmt.Println("Invalid Action")
+			}
+		case "snake":
+			switch action {
+			case "eat":
+				snake.Eat()
+			case "move":
+				snake.Move()
+			case "speak":
+				snake.Speak()
+			default:
+				fmt.Println("Invalid Action")
+			}
+		default:
+			fmt.Println("Invalid Animal")
 		}
-
-		switch action {
-		case "eat":
-			animalInput.Eat()
-		case "move":
-			animalInput.Move()
-		case "speak":
-			animalInput.Speak()
-
-		}
-
 	}
+
 }
